@@ -1,0 +1,7 @@
+Jako autor chci posílat èlánky do èasopisu.
+Jako autor chci být informovaný o aktuální fázi procesu schvalování.
+Jako redaktor chci, aby mi pøišel e-mail pøi vložení nového èlánku.
+Jako redaktor chci spravovat pøíspìvky prostøednictví aplikace.
+Jako redaktor chci posílat pøedvyplnìné nebo vlastní e-maily autorovi, abych ho mohl kontaktovat pøímo pomocí aplikace.
+Jako autor chci posílat opravu èlánku do èasopisu.
+Jako uživatel aplikace chci, aby aplikace obsahovala helpdesk propojený s e-mailovou schránkou a nápovìdu, abych mìl zpùsob jak získat odpovìdi na pøípadné otázky.
