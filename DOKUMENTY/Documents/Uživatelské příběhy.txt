@@ -1,7 +1,7 @@
-Jako autor chci posílat èlánky do èasopisu.
-Jako autor chci bıt informovanı o aktuální fázi procesu schvalování.
-Jako redaktor chci, aby mi pøišel e-mail pøi vloení nového èlánku.
-Jako redaktor chci spravovat pøíspìvky prostøednictví aplikace.
-Jako redaktor chci posílat pøedvyplnìné nebo vlastní e-maily autorovi, abych ho mohl kontaktovat pøímo pomocí aplikace.
-Jako autor chci posílat opravu èlánku do èasopisu.
-Jako uivatel aplikace chci, aby aplikace obsahovala helpdesk propojenı s e-mailovou schránkou a nápovìdu, abych mìl zpùsob jak získat odpovìdi na pøípadné otázky.
+Jako autor chci posÃ­lat ÄlÃ¡nky do Äasopisu. 1,5 hodiny
+Jako autor chci bÃ½t informovanÃ½ o aktuÃ¡lnÃ­ fÃ¡zi procesu schvalovÃ¡nÃ­.1,5 hodiny
+Jako redaktor chci, aby mi pÅ™iÅ¡el e-mail pÅ™i vloÅ¾enÃ­ novÃ©ho ÄlÃ¡nku. 1 hodina
+Jako redaktor chci spravovat pÅ™Ã­spÄ›vky prostÅ™ednictvÃ­ aplikace. 2 hodiny
+Jako redaktor chci posÃ­lat pÅ™edvyplnÄ›nÃ© nebo vlastnÃ­ e-maily autorovi, abych ho mohl kontaktovat pÅ™Ã­mo pomocÃ­ aplikace. 1,5 hodiny
+Jako autor chci posÃ­lat opravu ÄlÃ¡nku do Äasopisu. 1 hodina
+Jako uÅ¾ivatel aplikace chci, aby aplikace obsahovala helpdesk propojenÃ½ s e-mailovou schrÃ¡nkou a nÃ¡povÄ›du, abych mÄ›l zpÅ¯sob jak zÃ­skat odpovÄ›di na pÅ™Ã­padnÃ© otÃ¡zky. 3 hodiny
