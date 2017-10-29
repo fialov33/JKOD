@@ -1,7 +1,7 @@
-Jako autor chci posílat články do časopisu. 1,5 hodiny
-Jako autor chci být informovaný o aktuální fázi procesu schvalování.1,5 hodiny
+Jako autor chci posílat články do časopisu. 3 hodiny
+Jako autor chci být informovaný o aktuální fázi procesu schvalování. 2 hodiny
 Jako redaktor chci, aby mi přišel e-mail při vložení nového článku. 1 hodina
-Jako redaktor chci spravovat příspěvky prostřednictví aplikace. 2 hodiny
+Jako redaktor chci spravovat příspěvky prostřednictví aplikace. 3 hodiny
 Jako redaktor chci posílat předvyplněné nebo vlastní e-maily autorovi, abych ho mohl kontaktovat přímo pomocí aplikace. 1,5 hodiny
-Jako autor chci posílat opravu článku do časopisu. 1 hodina
-Jako uživatel aplikace chci, aby aplikace obsahovala helpdesk propojený s e-mailovou schránkou a nápovědu, abych měl způsob jak získat odpovědi na případné otázky. 3 hodiny
+Jako autor chci posílat opravu článku do časopisu. 3 hodina
+Jako uživatel aplikace chci, aby aplikace obsahovala helpdesk propojený s e-mailovou schránkou a nápovědu, abych měl způsob jak získat odpovědi na případné otázky. 4 hodiny
