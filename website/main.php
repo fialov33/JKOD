@@ -2,6 +2,7 @@
 include_once("menu.php");
 
 $link = mysqli_connect("127.0.0.1", "zelenk11", "Mor92Bud", "zelenk11");
+mysqli_set_charset($link, "utf8");
 
 if (isset($_GET['menu'])) {
     if ($_GET['menu'] == 'autori') {

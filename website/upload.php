@@ -1,5 +1,8 @@
 <?php
 $show_form = true;
+$link = mysqli_connect("127.0.0.1", "zelenk11", "Mor92Bud", "zelenk11");
+mysqli_set_charset($link, "utf8");
+
 if (isset($_POST['submit_upload'])) {
     $file_dest = "uploads/";
     $time = substr(str_replace(".", "", microtime(true)), 3);
@@ -9,11 +12,9 @@ if (isset($_POST['submit_upload'])) {
         if (move_uploaded_file($_FILES["file_upload"]["tmp_name"], $file_name) == false) {
             echo "Nepodařilo se nahrát soubor.";
         } else {
-            $index = $time; $autor_name = $_POST['autor_jmeno']; $autor_mail = $_POST['autor_mail']; $oprava = -1;
+            $index = $time; $autor_name = $_POST['autor_jmeno']; $autor_mail = $_POST['autor_mail']; $oprava = -1; $cislo = $_POST['cis'];
 
-            $link = mysqli_connect("127.0.0.1", "zelenk11", "Mor92Bud", "zelenk11");
-
-            $query = "INSERT INTO rsp_autori VALUES ('".$index."', '".$autor_name."', '".$autor_mail."', '".$oprava."')";
+            $query = "INSERT INTO rsp_autori VALUES ('".$index."', '".$autor_name."', '".$autor_mail."', '".$oprava."', '".$cislo."')";
             $sql = mysqli_query($link, $query);
 
             echo "Děkujeme za příspěvek.<br>
@@ -43,15 +44,42 @@ if (isset($_GET['file'])) {
 
 if ($show_form) : ?>
     <form method="post" action="" enctype="multipart/form-data">
-        Jméno:<input type="text" name="autor_jmeno" ><br>
-        Email:<input type="email" name="autor_mail" ><br>
-        Časopis:
-            <select>
-                <option value=""></option>
-            </select>
-        <br>
-        Článek:<input type="file" name="file_upload" accept="application/pdf"><br>
-        <input type="submit" name="submit_upload">
+        <table>
+            <tr>
+                <td>Jméno:</td>
+                <td><input type="text" name="autor_jmeno" ></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><input type="email" name="autor_mail" ></td>
+            </tr>
+            <tr>
+                <td>Časopis:</td>
+                    <?php
+                    $query_load_casopisy = "SELECT * FROM rsp_casopisy ORDER BY rok, ctvrtleti";
+                    $sql_casopisy = mysqli_query($link, $query_load_casopisy);
+
+                    while ($row = mysqli_fetch_array($sql_casopisy, MYSQLI_ASSOC)) {
+                        $sql_casopisy_assoc[] = $row;
+                    }
+                     ?>
+                <td><select name="cis">
+                    <?php
+                    foreach ($sql_casopisy_assoc as $s) {
+                        echo "<option value=\"".$s['cislo']."\">".$s['rok']."/".$s['ctvrtleti']." - ".$s['tema']."</option>";
+                    }
+                     ?>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Článek:</td>
+                <td><input type="file" name="file_upload" accept="application/pdf"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" name="submit_upload"></td>
+            </tr>
+        </table>
     </form>
 <?php
 endif;
