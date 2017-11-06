@@ -1,8 +1,8 @@
-Jako autor chci posílat články do časopisu.  - relativně jednoduché 
-Autorovi přijde potvrzovaní e-mail o přijetí. - 
-Jako autor chci být informovaný o aktuální fázi procesu schvalování. --||-- --||--
-Jako redaktor chci, aby mi přišel e-mail při vložení nového článku.  -
-Jako redaktor chci spravovat příspěvky prostřednictví aplikace. - těžké 
-Jako redaktor chci posílat předvyplněné nebo vlastní e-maily autorovi, abych ho mohl kontaktovat přímo pomocí aplikace. - těžké
-Jako autor chci posílat opravu článku do časopisu. - střední
-Jako uživatel aplikace chci, aby aplikace obsahovala helpdesk propojený s e-mailovou schránkou a nápovědu, abych měl způsob jak získat odpovědi na případné otázky. - velmi těžké
+Jako autor chci posílat články do časopisu.  - relativně jednoduché - 4 hodiny
+Autorovi přijde potvrzovaní e-mail o přijetí. - střední - 4 hodiny
+Jako autor chci být informovaný o aktuální fázi procesu schvalování. - střední - 4 hodiny
+Jako redaktor chci, aby mi přišel e-mail při vložení nového článku.  -střední - 4 hodiny
+Jako redaktor chci spravovat příspěvky prostřednictví aplikace. - těžké - 5 hodin
+Jako redaktor chci posílat předvyplněné nebo vlastní e-maily autorovi, abych ho mohl kontaktovat přímo pomocí aplikace. - těžké - 8
+Jako autor chci posílat opravu článku do časopisu. - střední - 3 hodiny
+Jako uživatel aplikace chci, aby aplikace obsahovala helpdesk propojený s e-mailovou schránkou a nápovědu, abych měl způsob jak získat odpovědi na případné otázky. - velmi těžké - 10 hodiny
