@@ -3,13 +3,14 @@ Příští týden v pondělí je Finále sprintu 1 - sprint review, kde se bude 
 Pro to je, ale potřeba udělat ještě "pár" věcí.
 
 Musíme vytvořit 3 NOVÉ DOKUMENTY :
-                                  REVIEW
+                                  REVIEW - zhodnocení zákazníkem
                                   RETROSPEKTIVA - co do sprintu 2 zlepšit, jaké praktiky si přenés do sprintu 2, co fungovalo/nefungovalo
                                   PREZENTACE ZA 14 DNÍ - ve společné přednášce každý tým bude prezentovat zatím odvedenou práci atd.
 
 Dále musíme změnit:
                     1) Máme málo hodin - momentálně nějakých 90 a musíme mít cca 160, protože celkově jich je 320. Můžeme jich mít klidně více, protože se počítá, že ve sprintu 1 odvedeme více práce. Takže změnit hodiny tak, aby to sedělo podle skutečnosti.
-                    2) Upravit SeeNowDo - grafy - máme špatně klesání a stoupání hodin
+                    2) Upravit SeeNowDo - grafy - máme špatně klesání a stoupání hodin, zřejmě špatně přesouváme tasky v kategoriích TODO - IN PROGRESS - COMPLETED
+                    3) Tasky vytváříme špatně - uživatelský příběh se rozpadá na více částí - tasků - programátorských úkolů - které je třeba přidělit
                     
                     
                     
