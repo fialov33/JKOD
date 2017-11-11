@@ -3,7 +3,7 @@ $show_form = true;
 $link = mysqli_connect("127.0.0.1", "zelenk11", "Mor92Bud", "zelenk11");
 mysqli_set_charset($link, "utf8");
 
-if (isset($_POST['submit_upload'])) {
+if (isset($_POST['submit_upload']) || isset($_POST['submit_upload_oprava'])) {
     $file_dest = "uploads/";
     $time = substr(str_replace(".", "", microtime(true)), 3);
     $file_name = $file_dest . $time . ".pdf";
@@ -14,7 +14,12 @@ if (isset($_POST['submit_upload'])) {
         } else {
             $index = $time; $autor_name = $_POST['autor_jmeno']; $autor_mail = $_POST['autor_mail']; $oprava = -1; $cislo = $_POST['cis'];
 
-            $query = "INSERT INTO rsp_autori VALUES ('".$index."', '".$autor_name."', '".$autor_mail."', '".$oprava."', '".$cislo."')";
+            if (isset($_POST['submit_upload'])) {
+                $query = "INSERT INTO rsp_autori VALUES ('".$index."', '".$autor_name."', '".$autor_mail."', '".$oprava."', '".$cislo."')";
+            } else {
+                $query = "UPDATE rsp_autori SET oprava='".$index."' WHERE index='".$_GET['file']."'";
+            }
+
             $sql = mysqli_query($link, $query);
 
             echo "Děkujeme za příspěvek.<br>
@@ -31,16 +36,45 @@ if (isset($_POST['submit_upload'])) {
     $show_form = false;
 }
 
-if (isset($_GET['file'])) {
-    echo "string";
-    // info o vkladani
-    // schvaleno x neschvaleno
-    // recenze 1 stav
-    // recenze 2 stav
-    // vlozit opravu
-
+if (isset($_GET['file'])) : ?>
+    <table>
+        <tr>
+            <td>Jméno</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Číso časopisu</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Schváleno do recenzního řízení</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Posudek 1</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Posudek 2</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Příspěvek přijat</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Vložit opravu</td>
+            <td>
+                <form method="post" action="" enctype="multipart/form-data">
+                    <input type="file" name="file_upload" accept="application/pdf">
+                    <input type="submit" name="submit_upload_oprava">
+                </form>
+            </td>
+        </tr>
+    </table>
+<?php
     $show_form = false;
-}
+endif;
 
 if ($show_form) : ?>
     <form method="post" action="" enctype="multipart/form-data">

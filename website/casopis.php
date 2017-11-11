@@ -53,7 +53,7 @@ $sql_casopisy = mysqli_query($link, $query_load_casopisy);
 while ($row = mysqli_fetch_array($sql_casopisy, MYSQLI_ASSOC)) {
     $sql_casopisy_assoc[] = $row;
 }
-echo "<pre>"; print_r($sql_casopisy_assoc); echo "</pre>";
+// echo "<pre>"; print_r($sql_casopisy_assoc); echo "</pre>";
  ?>
 
 <table>
@@ -61,16 +61,21 @@ echo "<pre>"; print_r($sql_casopisy_assoc); echo "</pre>";
         <td></td>
         <td>Téma</td>
         <td>Kapacita</td>
+        <td>Přijato do recenzního řízení</td>
         <td></td>
         <td></td>
     </tr>
     <?php
     foreach ($sql_casopisy_assoc as $s) {
+      $query_num_clanky = "SELECT * FROM rsp_casopisy WHERE cislo='".$s['cislo']."';";
+      $sql_num_clanky = mysqli_query($link, $query_num_clanky);
+      $clanky_prijato = mysqli_num_rows($sql_num_clanky);
         echo
         "<tr>".
             "<td>".$s['rok']."/".$s['ctvrtleti']."</td>".
             "<td>".$s['tema']."</td>".
-            "<td>".$s['kapacita']."</td>".
+            "<td>"."0"."/".$s['kapacita']."</td>".
+            "<td>".$clanky_prijato."</td>".
             "<td><a href=\"?menu=clanky&cislo=".$s['cislo']."\">zobrazit články</a><td>".
             "<td><a href=\"?menu=casopis&remove=".$s['cislo']."\">odebrat</a></td>".
         "</tr>"
