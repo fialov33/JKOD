@@ -11,10 +11,14 @@ Dále musíme změnit:
                     1) Máme málo hodin - momentálně nějakých 90 a musíme mít cca 160, protože celkově jich je 320. Můžeme jich mít klidně více, protože se počítá, že ve sprintu 1 odvedeme více práce. Takže změnit hodiny tak, aby to sedělo podle skutečnosti.
                     2) Upravit SeeNowDo - grafy - máme špatně klesání a stoupání hodin, zřejmě špatně přesouváme tasky v kategoriích TODO - IN PROGRESS - COMPLETED
                     3) Tasky vytváříme špatně - uživatelský příběh se rozpadá na více částí - tasků - programátorských úkolů - které je třeba přidělit
-                    
+ 
+ 
+  Prosím o doplnění těchto údaju, co si zapsali ostatní!
+ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 
 UDĚLÁNO: DOKUMENT RETROSPEKTIVA - IN PROGRESS - JAK JSEM JIŽ PSAL , STÁHNTĚTE A DOPLŇTE !
          DOKUMENT REVIEW - MUSÍ SE DOPLNIT PO SETKÁNÍ SE ZÁKAZNÍKEM!
          SEENOWDO - ZMĚNĚNA METRIKA, PŘIDÁNY TÁSKY!
-         ČÁSTI APLIKACE ( BASIC FUNCTION, CASOPIS.PHP, CLANEK.PHP, CLANKY.PHP,MAIN.PHP)
+         ČÁSTI APLIKACE ( BASIC FUNCTION, CASOPIS.PHP, CLANEK.PHP, CLANKY.PHP,MAIN.PHP, UPLOAD.PHP)
                     
-                    Prosím o doplnění těchto údaju, co si zapsali ostatní!
+                   
