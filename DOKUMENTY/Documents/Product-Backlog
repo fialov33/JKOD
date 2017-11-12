@@ -1,19 +1,28 @@
-Jako autor
--Chci posílat články do časopisu z pohodlí domova pomocí aplikace - 30 bodů
--Chci přijímat potvrzovací e-mail o přijetí - 60 bodů
--Chci posílat opravu článku do časopisu pomocí aplikace - 50 bodů
+Pohled autora článků
+
+Zasílání článků
+Jako autor chci posílat články do časopisu z pohodlí domova pomocí aplikace - 30 bodů
+
+Potvrzovací e-mail
+Jako autor chci být informován potvrzovacím e-mail o přijetí zaslaného článku - 60 bodů
+
+Zaslání opravy
+Jako autor chci pomocí aplikace posílat opravu článku do časopisu - 50 bodů
 
 
+Pohled redaktora časopisu
 
-Jako redaktor
--Chci aby mi automaticky přišel e-mail při vložení nového článku - 60 bodů
--Chci jednoduše spravovat příspěvky prostřednictvím aplikace - 80 bodů
--Chci posílat předvyplněné nebo vlastní e-maily autorovi, tedy kontaktovat ho přímo pomocí aplikace - 90 bodů
+E-mail ohlašující nový článek
+Jako redaktor chci, aby mi automaticky přišel e-mail při vložení nového článku - 60 bodů
+
+Správa příspěvků v aplikaci
+Jako redaktor časopisu chci jednoduše spravovat příspěvky prostřednictvím aplikace - 80 bodů
+
+Kontaktování autora e-mailem
+Jako redaktor chci posílat předvyplněné nebo vlastní e-maily autorovi, tedy kontaktovat ho přímo pomocí aplikace - 90 bodů
 
 
-
-
-Jako uživatel aplikace (redaktor,autor...)
--Chci využívat možnosti HELPDESKu + nápovědy (FAQ) na mé případné otázky - 100 bodů
+Pohled obecného uživatele aplikace (redaktor, autor, ...)
+Jako uživatel aplikaci chci využívat možnosti HELPDESKu a nápovědy (FAQ) na mé případné otázky - 100 bodů
 
 
