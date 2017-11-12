@@ -25,48 +25,54 @@ $sql_clanky = mysqli_query($link, $query_load_clanky);
 $sql_clanky_assoc = mysqli_fetch_array($sql_clanky, MYSQLI_ASSOC);
 // echo "<pre>"; print_r($sql_clanky_assoc); echo "</pre>";
 
-$query_num_clanky = "SELECT * FROM rsp_casopisy WHERE cislo='".$sql_clanky_assoc['cislo']."';";
+$query_num_clanky = "SELECT * FROM rsp_casopisy NATURAL JOIN rsp_autori WHERE cislo = '".$sql_clanky_assoc['cislo']."' AND prijato = '1';";
 $sql_num_clanky = mysqli_query($link, $query_num_clanky);
 $clanky_num = mysqli_num_rows($sql_num_clanky);
 ?>
 
-<table>
-  <tr>
-    <td>Jméno autora</td>
-    <td><?php echo $sql_clanky_assoc['autor_name']; ?></td>
-  </tr>
-  <tr>
-    <td>E-mail</td>
-    <td><?php echo $sql_clanky_assoc['autor_mail']; ?></td>
-  </tr>
-  <tr>
-    <td>Číslo časopisu</td>
-    <td><?php echo $sql_clanky_assoc['rok']."/".$sql_clanky_assoc['ctvrtleti']; ?></td>
-  </tr>
-  <tr>
-    <td>Téma časopisu</td>
-    <td><?php echo $sql_clanky_assoc['tema']; ?></td>
-  </tr>
-  <tr>
-    <td>Kapacita</td>
-    <td><?php echo $clanky_num."/".$sql_clanky_assoc['kapacita']; ?></td>
-  </tr>
+<table class="table">
+    <tr>
+        <td>Jméno autora</td>
+        <td><?php echo $sql_clanky_assoc['autor_name']; ?></td>
+    </tr>
+    <tr>
+        <td>E-mail</td>
+        <td><?php echo $sql_clanky_assoc['autor_mail']; ?></td>
+    </tr>
+    <tr>
+        <td>Číslo časopisu</td>
+        <td><?php echo $sql_clanky_assoc['rok']."/".$sql_clanky_assoc['ctvrtleti']; ?></td>
+    </tr>
+    <tr>
+        <td>Téma časopisu</td>
+        <td><?php echo $sql_clanky_assoc['tema']; ?></td>
+    </tr>
+    <tr>
+        <td>Kapacita</td>
+        <td><?php echo $clanky_num."/".$sql_clanky_assoc['kapacita']; ?></td>
+    </tr>
+    <tr>
+        <td>E-mail</td>
+        <td></td>
+    </tr>
 </table>
 
 <embed src="http://195.113.207.171/~zelenk11/rsp/uploads/<?php echo $sql_clanky_assoc['index']; ?>.pdf" width="990" height="700" type='application/pdf'></embed>
 
 <form method="post">
-    <table>
-        <tr>
-            <td>Přijmout do recenzního řízení</td>
-            <td>
-                <?php if ($sql_clanky_assoc['schvaleno'] == NULL) : ?>
-                    <input type="submit" name="prijmout_k_recenzi" value="Přijmout"><input type="submit" name="zamitnout_k_recenzi" value="Zamítnout">
-                <?php else: echo BitToText($sql_clanky_assoc['schvaleno']);
-                      endif; ?>
-            </td>
-        </tr>
-        <?php if ($sql_clanky_assoc['schvaleno'] == 1) : ?>
+    <table class="table">
+        <?php if ($_SESSION['adm'] == 1 || $_SESSION['red'] == 1) : ?>
+            <tr>
+                <td>Přijmout do recenzního řízení</td>
+                <td>
+                    <?php if ($sql_clanky_assoc['schvaleno'] == -1) : ?>
+                        <input type="submit" name="prijmout_k_recenzi" value="Přijmout"><input type="submit" name="zamitnout_k_recenzi" value="Zamítnout">
+                    <?php else: echo BitToText($sql_clanky_assoc['schvaleno']);
+                          endif; ?>
+                </td>
+            </tr>
+        <?php endif;
+        if ($sql_clanky_assoc['schvaleno'] == 1 && ($_SESSION['adm'] == 1 || $_SESSION['rec'] == 1)) : ?>
             <tr>
                 <td>Posudek 1</td>
                 <td>
@@ -87,11 +93,12 @@ $clanky_num = mysqli_num_rows($sql_num_clanky);
                           endif; ?>
                 </td>
             </tr>
+        <?php endif;
+        if ($_SESSION['adm'] == 1 || $_SESSION['red'] == 1) : ?>
             <tr>
                 <td>Odemknout vložení opravy</td>
                 <td><input type="submit" name="odemknout_opravu"></td>
             </tr>
         <?php endif; ?>
+    </table>
 </form>
-
-poslat email<br>
