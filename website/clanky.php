@@ -1,6 +1,6 @@
 <?php
 if (isset($_GET['cislo'])) {
-    $query_load_clanky = "SELECT * FROM rsp_autori NATURAL JOIN rsp_casopisy WHERE rsp_autori.cislo='".$_GET['cislo']."'";
+    $query_load_clanky = "SELECT * FROM rsp_autori NATURAL JOIN rsp_casopisy WHERE rsp_autori.cislo='".$_GET['cislo']."' AND schvaleno = 1";
 } else {
     $query_load_clanky = "SELECT * FROM rsp_autori NATURAL JOIN rsp_casopisy";
 }

@@ -19,27 +19,28 @@
 
     if (isset($_POST['submit_upload']) || isset($_POST['submit_upload_oprava'])) {
         $file_dest = "uploads/";
-        $time = substr(str_replace(".", "", microtime(true)), 3);
+        $time = 10000000000 + substr(str_replace(".", "", microtime(true)), 3);
         $file_name = $file_dest . $time . ".pdf";
 
-        if ($_FILES["file_upload"]["size"] < 250000) {
+        if ($_FILES["file_upload"]["size"] < 500000) {
             if (move_uploaded_file($_FILES["file_upload"]["tmp_name"], $file_name) == false) {
                 echo "Nepodařilo se nahrát soubor.";
             } else {
-                $index = $time; $autor_name = $_POST['autor_jmeno']; $autor_mail = $_POST['autor_mail']; $cislo = $_POST['cis'];
+                $index = $time; $autor_name = @$_POST['autor_jmeno']; $autor_mail = @$_POST['autor_mail']; @$cislo = $_POST['cis'];
 
                 if (isset($_POST['submit_upload'])) {
-                    $query = "INSERT INTO rsp_autori VALUES ('1".$index."', '".$autor_name."', '".$autor_mail."', '-1', '".$cislo."', '-1', '', '', '-1')";
+                    $query = "INSERT INTO rsp_autori VALUES ('".$index."', '".$autor_name."', '".$autor_mail."', '-1', '".$cislo."', '-1', '', '', '-1')";
                 } else {
-                    $query = "UPDATE rsp_autori SET oprava='".$index."' WHERE index='".$_GET['file']."'";
+                    $query = "UPDATE rsp_autori SET oprava='".$index."' WHERE rsp_autori.index='".$_GET['file']."'";
                 }
 
                 $sql = mysqli_query($link, $query);
 
-                echo "Děkujeme za příspěvek.<br>
-                Na Váš e-mail byla odeslána automatická potvrzení o přijetí Vašeho článku.<br>
-                Stav Vašeho příspěvku můžete sledovat na adrese: <a href=\"?file=1$index\">http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]?file=1$index</a>";
-
+                echo "Děkujeme za příspěvek.<br>";
+                if (isset($_POST['submit_upload'])) {
+                    echo "Na Váš e-mail byla odeslána automatická potvrzení o přijetí Vašeho článku.<br>
+                      Stav Vašeho příspěvku můžete sledovat na adrese: <a href=\"?file=$index\">http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]?file=$index</a>";
+                }
                 // echo mysqli_error($link);
 
                 $autor_text = "
@@ -91,11 +92,11 @@
                 </tr>
                 <tr>
                     <td>Posudek 1</td>
-                    <td><?php echo $autor_info_arr['posudek_1']; ?></td>
+                    <td><?php if ($autor_info_arr['posudek_1'] != "") { echo $autor_info_arr['posudek_1']; } else { echo "Nerozhodnuto"; } ?></td>
                 </tr>
                 <tr>
                     <td>Posudek 2</td>
-                    <td><?php echo $autor_info_arr['posudek_2']; ?></td>
+                    <td><?php if ($autor_info_arr['posudek_2'] != "") { echo $autor_info_arr['posudek_2']; } else { echo "Nerozhodnuto"; } ?></td>
                 </tr>
                 <tr>
                     <td>Příspěvek přijat</td>
@@ -156,7 +157,7 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td><input type="submit" name="submit_upload"></td>
+                    <td><input type="submit" name="submit_upload" value="Poslat článek"></td>
                 </tr>
             </table>
         </form>

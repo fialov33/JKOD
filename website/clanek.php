@@ -1,22 +1,38 @@
 <?php
 if (isset($_POST['prijmout_k_recenzi'])) {
-    $query_schvalit = "UPDATE rsp_autori SET schvaleno='1' WHERE index='".$_GET['c']."'";
+    $query_schvalit = "UPDATE rsp_autori SET schvaleno='1' WHERE rsp_autori.index='".$_GET['c']."'";
     $sql = mysqli_query($link, $query_schvalit);
 }
 if (isset($_POST['zamitnout_k_recenzi'])) {
-    $query_zamitnout = "UPDATE rsp_autori SET schvaleno='0' WHERE index='".$_GET['c']."'";
+    $query_zamitnout = "UPDATE rsp_autori SET schvaleno='0' WHERE rsp_autori.index='".$_GET['c']."'";
     $sql = mysqli_query($link, $query_zamitnout);
 }
 if (isset($_POST['posudek_1_submit'])) {
-    $query_posudek_1 = "UPDATE rsp_autori SET posudek_1='".$_POST['posudek_1']."' WHERE index='".$_GET['c']."'";
+    $query_posudek_1 = "UPDATE rsp_autori SET posudek_1='".$_POST['posudek_1']."' WHERE rsp_autori.index='".$_GET['c']."'";
     $sql = mysqli_query($link, $query_posudek_1);
 }
 if (isset($_POST['posudek_1_submit'])) {
-    $query_posudek_2 = "UPDATE rsp_autori SET posudek_2='".$_POST['posudek_2']."' WHERE index='".$_GET['c']."'";
+    $query_posudek_2 = "UPDATE rsp_autori SET posudek_2='".$_POST['posudek_2']."' WHERE rsp_autori.index='".$_GET['c']."'";
     $sql = mysqli_query($link, $query_posudek_2);
-} if (isset($_POST['odemknout_opravu'])) {
-    $query_oprava = "UPDATE rsp_autori SET oprava='0' WHERE index='".$_GET['c']."'";
+}
+if (isset($_POST['odemknout_opravu'])) {
+    $query_oprava = "UPDATE rsp_autori SET oprava='0' WHERE rsp_autori.index='".$_GET['c']."'";
     $sql = mysqli_query($link, $query_oprava);
+}
+if (isset($_POST['odeslat_mail'])) {
+    $query_load_clanky = "SELECT * FROM rsp_autori NATURAL JOIN rsp_casopisy WHERE rsp_autori.index = '".$_GET['c']."';";
+    $sql_clanky = mysqli_query($link, $query_load_clanky);
+    $sql_clanky_assoc = mysqli_fetch_array($sql_clanky, MYSQLI_ASSOC);
+
+    MailTo($sql_clanky_assoc['autor_mail'], "předmět", $_POST['mail_area']);
+}
+if (isset($_POST['priradit_pos_1'])) {
+    $query_posudek = "UPDATE rsp_autori SET posudek_1_priradit = '".$_POST['select_pos_1']."' WHERE rsp_autori.index = '".$_GET['c']."';";
+    $sql_posudek = mysqli_query($link, $query_posudek);
+}
+if (isset($_POST['priradit_pos_2'])) {
+    $query_posudek = "UPDATE rsp_autori SET posudek_2_priradit = '".$_POST['select_pos_2']."' WHERE rsp_autori.index = '".$_GET['c']."';";
+    $sql_posudek = mysqli_query($link, $query_posudek);
 }
 
 $query_load_clanky = "SELECT * FROM rsp_autori NATURAL JOIN rsp_casopisy WHERE rsp_autori.index = '".$_GET['c']."';";
@@ -53,11 +69,46 @@ $clanky_num = mysqli_num_rows($sql_num_clanky);
     </tr>
     <tr>
         <td>E-mail</td>
-        <td></td>
+        <td>
+        <form method="post">
+            <textarea name="mail_area" rows="5" cols="75">Toto je ukázkový text e-mailu</textarea><br>
+            <input type="submit" name="odeslat_mail" value="Odeslat e-mail">
+        </form>
+        </td>
     </tr>
 </table>
 
-<embed src="http://195.113.207.171/~zelenk11/rsp/uploads/<?php echo $sql_clanky_assoc['index']; ?>.pdf" width="990" height="700" type='application/pdf'></embed>
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Článek</a>
+      </h4>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse">
+      <div class="panel-body">
+        <embed src="http://195.113.207.171/~zelenk11/rsp/uploads/<?php echo $sql_clanky_assoc['index']; ?>.pdf" width="990" height="700" type='application/pdf'></embed>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Oprava</a>
+      </h4>
+    </div>
+    <div id="collapse2" class="panel-collapse collapse">
+      <div class="panel-body">
+        <?php
+        if ($sql_clanky_assoc['oprava'] > 0) : ?>
+          <embed src="http://195.113.207.171/~zelenk11/rsp/uploads/<?php echo $sql_clanky_assoc['oprava']; ?>.pdf" width="990" height="700" type='application/pdf'></embed>
+        <?php
+        endif;
+        ?>
+      </div>
+    </div>
+  </div>
+</div>
 
 <form method="post">
     <table class="table">
@@ -71,30 +122,75 @@ $clanky_num = mysqli_num_rows($sql_num_clanky);
                           endif; ?>
                 </td>
             </tr>
-        <?php endif;
-        if ($sql_clanky_assoc['schvaleno'] == 1 && ($_SESSION['adm'] == 1 || $_SESSION['rec'] == 1)) : ?>
+            <?php if ($sql_clanky_assoc['schvaleno'] == 1): ?>
+                <tr>
+                    <td>Přiřadit posudek 1</td>
+                    <td>
+                        <?php if ($sql_clanky_assoc['posudek_1_priradit'] == ""): ?>
+                            <select name="select_pos_1">
+                                <?php
+                                $query_recenzenti = "SELECT * FROM rsp_users WHERE recenzent = 1";
+                                $sql_recenzenti = mysqli_query($link, $query_recenzenti);
+                                while ($row = mysqli_fetch_assoc($sql_recenzenti)) {
+                                    echo "<option value=\"".$row['username']."\">".$row['username']."</option>";
+                                }
+                                 ?>
+                            </select>
+                            <br>
+                            <input type="submit" name="priradit_pos_1">
+                        <?php else: echo $sql_clanky_assoc['posudek_1_priradit']; ?>
+                        <?php endif; ?>
+
+                    </td>
+                </tr>
+            <?php endif; ?>
+        <?php endif; ?>
+        <?php if (($sql_clanky_assoc['posudek_1_priradit'] == $_SESSION['logos_polytechnikos_login'] || $_SESSION['adm'] == 1) && $sql_clanky_assoc['schvaleno'] == 1): ?>
             <tr>
                 <td>Posudek 1</td>
                 <td>
                     <?php if ($sql_clanky_assoc['posudek_1'] == "") : ?>
-                        <textarea name="posudek_1"></textarea>
+                        <textarea name="posudek_1" cols="75"></textarea><br>
                         <input type="submit" name="posudek_1_submit">
                     <?php else: echo $sql_clanky_assoc['posudek_1'];
                           endif; ?>
                 </td>
             </tr>
+        <?php endif; ?>
+        <?php if (($_SESSION['adm'] == 1 || $_SESSION['red'] == 1) && $sql_clanky_assoc['schvaleno'] == 1): ?>
+            <tr>
+                <td>Přiřadit posudek 2</td>
+                <td>
+                    <?php if ($sql_clanky_assoc['posudek_2_priradit'] == ""): ?>
+                        <select name="select_pos_2">
+                            <?php
+                            $query_recenzenti = "SELECT * FROM rsp_users WHERE recenzent = 1";
+                            $sql_recenzenti = mysqli_query($link, $query_recenzenti);
+                            while ($row = mysqli_fetch_assoc($sql_recenzenti)) {
+                                echo "<option value=\"".$row['username']."\">".$row['username']."</option>";
+                            }
+                             ?>
+                        </select>
+                        <br>
+                        <input type="submit" name="priradit_pos_2">
+                    <?php else: echo $sql_clanky_assoc['posudek_2_priradit']; ?>
+                    <?php endif; ?>
+                </td>
+            </tr>
+        <?php endif; ?>
+        <?php if ($sql_clanky_assoc['posudek_2_priradit'] == $_SESSION['logos_polytechnikos_login'] || $_SESSION['adm'] == 1): ?>
             <tr>
                 <td>Posudek 2</td>
                 <td>
                     <?php if ($sql_clanky_assoc['posudek_2'] == "") : ?>
-                        <textarea name="posudek_2"></textarea>
+                        <textarea name="posudek_2" cols="75"></textarea><br>
                         <input type="submit" name="posudek_1_submit">
                     <?php else: echo $sql_clanky_assoc['posudek_2'];
                           endif; ?>
                 </td>
             </tr>
-        <?php endif;
-        if ($_SESSION['adm'] == 1 || $_SESSION['red'] == 1) : ?>
+        <?php endif; ?>
+        <?php if (($_SESSION['adm'] == 1 || $_SESSION['red'] == 1) && $sql_clanky_assoc['oprava'] == -1) : ?>
             <tr>
                 <td>Odemknout vložení opravy</td>
                 <td><input type="submit" name="odemknout_opravu"></td>
