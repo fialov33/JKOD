@@ -5,6 +5,14 @@ if (isset($_GET['cislo'])) {
     $query_load_clanky = "SELECT * FROM rsp_autori NATURAL JOIN rsp_casopisy";
 }
 
+if (isset($_GET['order'])) {
+    $query_load_clanky .= " ORDER BY ".$_GET['order'];
+}
+
+if (isset($_GET['o'])) {
+    $query_load_clanky .= " DESC";
+}
+
 $sql_clanky = mysqli_query($link, $query_load_clanky);
 
 while ($row = mysqli_fetch_array($sql_clanky, MYSQLI_ASSOC)) {
@@ -15,10 +23,17 @@ while ($row = mysqli_fetch_array($sql_clanky, MYSQLI_ASSOC)) {
 
 <table class="table">
     <tr>
-        <td><b>Jméno autora</b></td>
-        <td><b>E-mail autora</b></td>
-        <td></td>
-        <td><b>Přijat do recenzního řízení</b></td>
+        <?php
+        $href = "?menu=clanky";
+        if (isset($_GET['cislo'])) {
+            $href .= "&cislo=".$_GET['cislo'];
+        }
+        $href .= "&order=";
+        ?>
+        <td><b><a href="<?php echo $href.'autor_name'; if (isset($_GET['order'])) { if ($_GET['order'] == 'autor_name' && !isset($_GET['o'])) { echo '&o=desc'; } }; ?>">Jméno autora</a></b></td>
+        <td><b><a href="<?php echo $href.'autor_mail'; if (isset($_GET['order'])) { if ($_GET['order'] == 'autor_mail' && !isset($_GET['o'])) { echo '&o=desc'; } }; ?>">E-mail autora</a></b></td>
+        <td><b><a href="<?php echo $href.'cislo'; if (isset($_GET['order'])) { if ($_GET['order'] == 'cislo' && !isset($_GET['o'])) { echo '&o=desc'; } }; ?>">Číslo</a></b></td>
+        <td><b><a href="<?php echo $href.'schvaleno'; if (isset($_GET['order'])) { if ($_GET['order'] == 'schvaleno' && !isset($_GET['o'])) { echo '&o=desc'; } }; ?>">Přijat do recenzního řízení</a></b></td>
         <td></td>
     </tr>
     <?php

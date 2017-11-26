@@ -11,7 +11,7 @@ if (isset($_POST['posudek_1_submit'])) {
     $query_posudek_1 = "UPDATE rsp_autori SET posudek_1='".$_POST['posudek_1']."' WHERE rsp_autori.index='".$_GET['c']."'";
     $sql = mysqli_query($link, $query_posudek_1);
 }
-if (isset($_POST['posudek_1_submit'])) {
+if (isset($_POST['posudek_2_submit'])) {
     $query_posudek_2 = "UPDATE rsp_autori SET posudek_2='".$_POST['posudek_2']."' WHERE rsp_autori.index='".$_GET['c']."'";
     $sql = mysqli_query($link, $query_posudek_2);
 }
@@ -33,6 +33,14 @@ if (isset($_POST['priradit_pos_1'])) {
 if (isset($_POST['priradit_pos_2'])) {
     $query_posudek = "UPDATE rsp_autori SET posudek_2_priradit = '".$_POST['select_pos_2']."' WHERE rsp_autori.index = '".$_GET['c']."';";
     $sql_posudek = mysqli_query($link, $query_posudek);
+}
+if (isset($_POST['prijmoout_do_casopisu'])) {
+    $query_prijmout = "UPDATE rsp_autori SET prijato = '1' WHERE rsp_autori.index = '".$_GET['c']."';";
+    $sql_prijmout = mysqli_query($link, $query_prijmout);
+}
+if (isset($_POST['odmitnout_do_casopisu'])) {
+    $query_odmitnout = "UPDATE rsp_autori SET prijato = '0' WHERE rsp_autori.index = '".$_GET['c']."';";
+    $sql_odmitnout = mysqli_query($link, $query_odmitnout);
 }
 
 $query_load_clanky = "SELECT * FROM rsp_autori NATURAL JOIN rsp_casopisy WHERE rsp_autori.index = '".$_GET['c']."';";
@@ -117,7 +125,8 @@ $clanky_num = mysqli_num_rows($sql_num_clanky);
                 <td>Přijmout do recenzního řízení</td>
                 <td>
                     <?php if ($sql_clanky_assoc['schvaleno'] == -1) : ?>
-                        <input type="submit" name="prijmout_k_recenzi" value="Přijmout"><input type="submit" name="zamitnout_k_recenzi" value="Zamítnout">
+                        <input type="submit" name="prijmout_k_recenzi" value="Přijmout">
+                        <input type="submit" name="zamitnout_k_recenzi" value="Zamítnout">
                     <?php else: echo BitToText($sql_clanky_assoc['schvaleno']);
                           endif; ?>
                 </td>
@@ -145,7 +154,7 @@ $clanky_num = mysqli_num_rows($sql_num_clanky);
                 </tr>
             <?php endif; ?>
         <?php endif; ?>
-        <?php if (($sql_clanky_assoc['posudek_1_priradit'] == $_SESSION['logos_polytechnikos_login'] || $_SESSION['adm'] == 1) && $sql_clanky_assoc['schvaleno'] == 1): ?>
+        <?php if (($sql_clanky_assoc['posudek_1_priradit'] == $_SESSION['logos_polytechnikos_login'] || $_SESSION['adm'] == 1 || $_SESSION['red'] == 1) && $sql_clanky_assoc['schvaleno'] == 1): ?>
             <tr>
                 <td>Posudek 1</td>
                 <td>
@@ -178,13 +187,13 @@ $clanky_num = mysqli_num_rows($sql_num_clanky);
                 </td>
             </tr>
         <?php endif; ?>
-        <?php if ($sql_clanky_assoc['posudek_2_priradit'] == $_SESSION['logos_polytechnikos_login'] || $_SESSION['adm'] == 1): ?>
+        <?php if (($sql_clanky_assoc['posudek_2_priradit'] == $_SESSION['logos_polytechnikos_login'] || $_SESSION['adm'] == 1 || $_SESSION['red'] == 1) && $sql_clanky_assoc['schvaleno'] == 1): ?>
             <tr>
                 <td>Posudek 2</td>
                 <td>
                     <?php if ($sql_clanky_assoc['posudek_2'] == "") : ?>
                         <textarea name="posudek_2" cols="75"></textarea><br>
-                        <input type="submit" name="posudek_1_submit">
+                        <input type="submit" name="posudek_2_submit">
                     <?php else: echo $sql_clanky_assoc['posudek_2'];
                           endif; ?>
                 </td>
@@ -196,5 +205,16 @@ $clanky_num = mysqli_num_rows($sql_num_clanky);
                 <td><input type="submit" name="odemknout_opravu"></td>
             </tr>
         <?php endif; ?>
+        <?php if (($_SESSION['adm'] == 1 || $_SESSION['red'] == 1) && $sql_clanky_assoc['schvaleno'] == 1) ?>
+        <tr>
+            <td>Přijmout článek:</td>
+            <td>
+                <?php if ($sql_clanky_assoc['prijato'] == -1) : ?>
+                    <input type="submit" name="prijmoout_do_casopisu" value="Přijmout">
+                    <input type="submit" name="odmitnout_do_casopisu" value="Odmítnout">
+                <?php else: echo BitToText($sql_clanky_assoc['prijato']); endif; ?>
+                    
+            </td>
+        </tr>
     </table>
 </form>
