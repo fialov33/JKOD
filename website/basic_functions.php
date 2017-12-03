@@ -28,4 +28,4 @@ function MailTo($to, $subject, $message)
 
     mail($to, $subject, $message, implode("\r\n", $headers));
 }
- ?>
+?>

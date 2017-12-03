@@ -16,27 +16,27 @@ if ($_GET['u'] == "add") :
             </tr>
             <tr>
                 <td>Uživatelské jméno</td>
-                <td><input type="text" name="username"></td>
+                <td><input type="text" name="username" class="form-control"></td>
             </tr>
             <tr>
                 <td>Heslo</td>
-                <td><input type="text" name="password"></td>
+                <td><input type="text" name="password" class="form-control"></td>
             </tr>
             <tr>
                 <td>Administrátor</td>
-                <td><input type="checkbox" name="adm"></td>
+                <td><input type="checkbox" name="adm" class="form-control"></td>
             </tr>
             <tr>
                 <td>Redaktor</td>
-                <td><input type="checkbox" name="red"></td>
+                <td><input type="checkbox" name="red" class="form-control"></td>
             </tr>
             <tr>
                 <td>Recenzent</td>
-                <td><input type="checkbox" name="rec"></td>
+                <td><input type="checkbox" name="rec" class="form-control"></td>
             </tr>
             <tr>
                 <td></td>
-                <td><input type="submit" name="uzivatel_add"></td>
+                <td><input type="submit" name="uzivatel_add" class="btn-default, btn"></td>
             </tr>
         </form>
     </table>
@@ -58,11 +58,11 @@ if ($_GET['u'] == "view") {
                 </tr>
                 <tr>
                     <td>Uživatelské jméno</td>
-                    <td><input type="text" name="username" value="<?php echo $user_assoc['username']; ?>"></td>
+                    <td><input type="text" name="username" value="<?php echo $user_assoc['username']; ?>" class="form-control"></td>
                 </tr>
                 <tr>
                     <td>Heslo</td>
-                    <td><input type="text" name="password" value="<?php echo $user_assoc['password']; ?>"></td>
+                    <td><input type="text" name="password" value="<?php echo $user_assoc['password']; ?>" class="form-control"></td>
                 </tr>
                 <tr>
                     <td>Administrátor</td>
@@ -79,7 +79,7 @@ if ($_GET['u'] == "view") {
                 <?php if ($_SESSION['adm'] == 1) : ?>
                     <tr>
                         <td></td>
-                        <td><input type="submit" name="uzivatel_change"></td>
+                        <td><input type="submit" name="uzivatel_change" class="btn-default, btn"></td>
                     </tr>
                 <?php endif; ?>
             </form>

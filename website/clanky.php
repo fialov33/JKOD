@@ -19,7 +19,7 @@ while ($row = mysqli_fetch_array($sql_clanky, MYSQLI_ASSOC)) {
     $sql_clanky_assoc[] = $row;
 }
 // echo "<pre>"; print_r($sql_clanky_assoc); echo "</pre>";
- ?>
+?>
 
 <table class="table">
     <tr>
@@ -30,10 +30,18 @@ while ($row = mysqli_fetch_array($sql_clanky, MYSQLI_ASSOC)) {
         }
         $href .= "&order=";
         ?>
-        <td><b><a href="<?php echo $href.'autor_name'; if (isset($_GET['order'])) { if ($_GET['order'] == 'autor_name' && !isset($_GET['o'])) { echo '&o=desc'; } }; ?>">Jméno autora</a></b></td>
-        <td><b><a href="<?php echo $href.'autor_mail'; if (isset($_GET['order'])) { if ($_GET['order'] == 'autor_mail' && !isset($_GET['o'])) { echo '&o=desc'; } }; ?>">E-mail autora</a></b></td>
-        <td><b><a href="<?php echo $href.'cislo'; if (isset($_GET['order'])) { if ($_GET['order'] == 'cislo' && !isset($_GET['o'])) { echo '&o=desc'; } }; ?>">Číslo</a></b></td>
-        <td><b><a href="<?php echo $href.'schvaleno'; if (isset($_GET['order'])) { if ($_GET['order'] == 'schvaleno' && !isset($_GET['o'])) { echo '&o=desc'; } }; ?>">Přijat do recenzního řízení</a></b></td>
+        <td>
+            <b><a href="<?php echo $href.'autor_name'; if (isset($_GET['order'])) { if ($_GET['order'] == 'autor_name' && !isset($_GET['o'])) { echo '&o=desc'; } }; ?>">Jméno autora</a></b>
+        </td>
+        <td>
+            <b><a href="<?php echo $href.'autor_mail'; if (isset($_GET['order'])) { if ($_GET['order'] == 'autor_mail' && !isset($_GET['o'])) { echo '&o=desc'; } }; ?>">E-mail autora</a></b>
+        </td>
+        <td>
+            <b><a href="<?php echo $href.'cislo'; if (isset($_GET['order'])) { if ($_GET['order'] == 'cislo' && !isset($_GET['o'])) { echo '&o=desc'; } }; ?>">Číslo</a></b>
+        </td>
+        <td>
+            <b><a href="<?php echo $href.'schvaleno'; if (isset($_GET['order'])) { if ($_GET['order'] == 'schvaleno' && !isset($_GET['o'])) { echo '&o=desc'; } }; ?>">Přijat do recenzního řízení</a></b>
+        </td>
         <td></td>
     </tr>
     <?php
@@ -48,5 +56,5 @@ while ($row = mysqli_fetch_array($sql_clanky, MYSQLI_ASSOC)) {
 
         echo $out;
     }
-     ?>
+    ?>
 </table>

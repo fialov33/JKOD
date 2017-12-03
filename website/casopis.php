@@ -21,23 +21,23 @@ if ($_SESSION['adm'] == 1 || $_SESSION['red'] == 1) : ?>
         </tr>
         <tr>
             <td>Rok:</td>
-            <td><input type="number" name="rok" value="<?php echo date("Y"); ?>" min="2000" max="2100"></td>
+            <td><input type="number" name="rok" value="<?php echo date("Y"); ?>" min="2000" max="2100" class="form-control"></td>
         </tr>
         <tr>
             <td>Čtvrtletí:</td>
-            <td><input type="number" name="ctvrt" value="1" min="1" max="4"></td>
+            <td><input type="number" name="ctvrt" value="1" min="1" max="4" class="form-control"></td>
         </tr>
         <tr>
             <td>Kapacita:</td>
-            <td><input type="number" name="kap" value="1" min="1" max="100"></td>
+            <td><input type="number" name="kap" value="1" min="1" max="100" class="form-control"></td>
         </tr>
         <tr>
             <td>Téma:</td>
-            <td><input type="text" name="tema"></td>
+            <td><input type="text" name="tema" class="form-control"></td>
         </tr>
         <tr>
             <td></td>
-            <td><input type="submit" name="novy_casopis"></td>
+            <td><input type="submit" name="novy_casopis" class="btn-default, btn"></td>
         </tr>
     </table>
 </form>

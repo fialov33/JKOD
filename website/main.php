@@ -32,7 +32,7 @@
             $_SESSION['adm'] = 0;
             $_SESSION['red'] = 0;
             $_SESSION['rec'] = 0;
-            
+
             if ($login_assoc['administrator'] == 1) {
                 $_SESSION['logos_polytechnikos_role'] .= "Administrátor<br>";
                 $_SESSION['adm'] = 1;
@@ -52,22 +52,22 @@
     include_once("basic_functions.php");
 
     if (!isset($_SESSION['logos_polytechnikos_login'])) : ?>
-        <table>
-            <form method="post">
-                <tr>
-                    <td>Jméno:</td>
-                    <td><input type="text" name="username"></td>
-                </tr>
-                <tr>
-                    <td>Heslo:</td>
-                    <td><input type="password" name="password"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="submit" name="login_submit"></td>
+    <table>
+        <form method="post">
+            <tr>
+                <td>Jméno:</td>
+                <td><input type="text" name="username" class="form-control"></td>
+            </tr>
+            <tr>
+                <td>Heslo:</td>
+                <td><input type="password" name="password" class="form-control"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" name="login_submit" class="form-control"></td>
             </form>
         </table>
-<?php else :
+    <?php else :
         include_once("menu.php");
 
         if (isset($_GET['menu'])) {
@@ -92,6 +92,5 @@
             include_once("default.php");
         }
     endif;
-
     ?>
 </div>

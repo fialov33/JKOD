@@ -39,7 +39,7 @@
                 echo "Děkujeme za příspěvek.<br>";
                 if (isset($_POST['submit_upload'])) {
                     echo "Na Váš e-mail byla odeslána automatická potvrzení o přijetí Vašeho článku.<br>
-                      Stav Vašeho příspěvku můžete sledovat na adrese: <a href=\"?file=$index\">http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]?file=$index</a>";
+                    Stav Vašeho příspěvku můžete sledovat na adrese: <a href=\"?file=$index\">http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]?file=$index</a>";
                 }
                 echo mysqli_error($link);
 
@@ -53,14 +53,14 @@
                 $redaktor_text = "
                 Do systému byl přidaný nový článek.<br>
                 <table>
-                    <tr>
-                        <td>Jméno</td>
-                        <td>".$autor_name."</td>
-                    </tr>
-                    <tr>
-                        <td>E-mail</td>
-                        <td>".$autor_mail."</td>
-                    </tr>
+                <tr>
+                <td>Jméno</td>
+                <td>".$autor_name."</td>
+                </tr>
+                <tr>
+                <td>E-mail</td>
+                <td>".$autor_mail."</td>
+                </tr>
                 ";
                 MailTo($autor_mail, "LOGOS POLYTECHNIKOS - přijetí článku", $autor_text);
                 MailTo("gr33nnyg@gmail.com", "LOGOS POLYTECHNIKOS - přijetí článku", $redaktor_text);
@@ -107,61 +107,63 @@
                         <td>Vložit opravu</td>
                         <td>
                             <form method="post" action="" enctype="multipart/form-data">
-                                <input type="file" name="file_upload" accept="application/pdf">
-                                <input type="submit" name="submit_upload_oprava">
+                                <input type="file" name="file_upload" accept="application/pdf" class="form-control">
+                                <input type="submit" name="submit_upload_oprava" class="btn-default, btn">
                             </form>
                         </td>
                     </tr>
                 <?php endif; ?>
             </table>
-    <?php
+            <?php
         endif;
         $show_form = false;
     endif;
 
     if ($show_form) : ?>
-        <form method="post" action="" enctype="multipart/form-data">
-            <table class="table">
-                <tr>
-                    <td colspan="2">Nahrání článku:</td>
-                </tr>
-                <tr>
-                    <td>Jméno:</td>
-                    <td><input type="text" name="autor_jmeno" ></td>
-                </tr>
-                <tr>
-                    <td>Email:</td>
-                    <td><input type="email" name="autor_mail" ></td>
-                </tr>
-                <tr>
-                    <td>Časopis:</td>
-                        <?php
-                        $query_load_casopisy = "SELECT * FROM rsp_casopisy ORDER BY rok, ctvrtleti";
-                        $sql_casopisy = mysqli_query($link, $query_load_casopisy);
+    <form method="post" action="" enctype="multipart/form-data">
+        <table class="table">
+            <tr>
+                <td colspan="2">Nahrání článku:</td>
+            </tr>
+            <tr>
+                <td>Jméno:</td>
+                <td><input type="text" name="autor_jmeno" class="form-control"></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><input type="email" name="autor_mail" class="form-control"></td>
+            </tr>
+            <tr>
+                <td>Časopis:</td>
+                <?php
+                $query_load_casopisy = "SELECT * FROM rsp_casopisy ORDER BY rok, ctvrtleti";
+                $sql_casopisy = mysqli_query($link, $query_load_casopisy);
 
-                        while ($row = mysqli_fetch_array($sql_casopisy, MYSQLI_ASSOC)) {
-                            $sql_casopisy_assoc[] = $row;
-                        }
-                         ?>
-                    <td><select name="cis">
+                while ($row = mysqli_fetch_array($sql_casopisy, MYSQLI_ASSOC)) {
+                    $sql_casopisy_assoc[] = $row;
+                }
+                ?>
+                <td>
+                    <select name="cis" class="form-control">
                         <?php
                         foreach ($sql_casopisy_assoc as $s) {
                             echo "<option value=\"".$s['cislo']."\">".$s['rok']."/".$s['ctvrtleti']." - ".$s['tema']."</option>";
                         }
-                         ?>
-                    </select></td>
-                </tr>
-                <tr>
-                    <td>Článek:</td>
-                    <td><input type="file" name="file_upload" accept="application/pdf"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="submit" name="submit_upload" value="Poslat článek"></td>
-                </tr>
-            </table>
-        </form>
+                        ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Článek:</td>
+                <td><input type="file" name="file_upload" accept="application/pdf" class="form-control"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" name="submit_upload" value="Poslat článek" class="btn-default, btn"></td>
+            </tr>
+        </table>
+    </form>
     <?php
     endif;
-     ?>
+    ?>
 </div>
