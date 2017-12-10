@@ -24,7 +24,9 @@ if (isset($_POST['odeslat_mail'])) {
     $sql_clanky = mysqli_query($link, $query_load_clanky);
     $sql_clanky_assoc = mysqli_fetch_array($sql_clanky, MYSQLI_ASSOC);
 
-    MailTo($sql_clanky_assoc['autor_mail'], "předmět", $_POST['mail_area']);
+    MailTo($sql_clanky_assoc['autor_mail'], "Článek č. ".$sql_clanky_assoc['index'], $_POST['mail_area']);
+
+    echo "<b>E-mail byl úspěšně odeslaný.</b><br>";
 }
 if (isset($_POST['priradit_pos_1'])) {
     $query_posudek = "UPDATE rsp_autori SET posudek_1_priradit = '".$_POST['select_pos_1']."' WHERE rsp_autori.index = '".$_GET['c']."';";
@@ -54,7 +56,7 @@ $sql_num_clanky = mysqli_query($link, $query_num_clanky);
 $clanky_num = mysqli_num_rows($sql_num_clanky);
 ?>
 
-<table class="table">
+<table class="table table-striped">
     <tr>
         <td>Jméno autora</td>
         <td><?php echo $sql_clanky_assoc['autor_name']; ?></td>
@@ -80,7 +82,7 @@ $clanky_num = mysqli_num_rows($sql_num_clanky);
         <td>
             <form method="post">
                 <textarea name="mail_area" rows="5" cols="75" class="form-control">Toto je ukázkový text e-mailu</textarea><br>
-                <input type="submit" name="odeslat_mail" value="Odeslat e-mail" class="btn-default, btn">
+                <input type="submit" name="odeslat_mail" value="Odeslat e-mail" class="btn-default btn">
             </form>
         </td>
     </tr>
@@ -111,22 +113,26 @@ $clanky_num = mysqli_num_rows($sql_num_clanky);
                 if ($sql_clanky_assoc['oprava'] > 0) : ?>
                 <embed src="http://195.113.207.171/~zelenk11/rsp/uploads/<?php echo $sql_clanky_assoc['oprava']; ?>.pdf" width="990" height="700" type='application/pdf'></embed>
                 <?php
-            endif;
-            ?>
+                else:
+                 ?>
+                Oprava nebyla odemknutá nebo ještě nebyla vložená.
+                <?php
+                endif;
+                ?>
+            </div>
         </div>
     </div>
 </div>
-</div>
 
 <form method="post">
-    <table class="table">
+    <table class="table table-striped">
         <?php if ($_SESSION['adm'] == 1 || $_SESSION['red'] == 1) : ?>
             <tr>
                 <td>Přijmout do recenzního řízení</td>
                 <td>
                     <?php if ($sql_clanky_assoc['schvaleno'] == -1) : ?>
-                        <input type="submit" name="prijmout_k_recenzi" value="Přijmout" class="btn-default, btn">
-                        <input type="submit" name="zamitnout_k_recenzi" value="Zamítnout" class="btn-default, btn">
+                        <input type="submit" name="prijmout_k_recenzi" value="Přijmout" class="btn-default btn">
+                        <input type="submit" name="zamitnout_k_recenzi" value="Zamítnout" class="btn-default btn">
                     <?php else: echo BitToText($sql_clanky_assoc['schvaleno']);
                 endif; ?>
             </td>
@@ -146,7 +152,7 @@ $clanky_num = mysqli_num_rows($sql_num_clanky);
                             ?>
                         </select>
                         <br>
-                        <input type="submit" name="priradit_pos_1" class="btn-default, btn">
+                        <input type="submit" name="priradit_pos_1" class="btn-default btn">
                     <?php else: echo $sql_clanky_assoc['posudek_1_priradit']; ?>
                     <?php endif; ?>
 
@@ -154,13 +160,13 @@ $clanky_num = mysqli_num_rows($sql_num_clanky);
             </tr>
         <?php endif; ?>
     <?php endif; ?>
-    <?php if (($sql_clanky_assoc['posudek_1_priradit'] == $_SESSION['logos_polytechnikos_login'] || $_SESSION['adm'] == 1 || $_SESSION['red'] == 1) && $sql_clanky_assoc['schvaleno'] == 1): ?>
+    <?php if (($sql_clanky_assoc['posudek_1_priradit'] == $_SESSION['logos_polytechnikos_login'] || $_SESSION['adm'] == 1 || $_SESSION['red'] == 1) && $sql_clanky_assoc['schvaleno'] == 1  && $sql_clanky_assoc['posudek_1_priradit'] != ""): ?>
         <tr>
             <td>Posudek 1</td>
             <td>
                 <?php if ($sql_clanky_assoc['posudek_1'] == "") : ?>
                     <textarea name="posudek_1" cols="75" class="form-control"></textarea><br>
-                    <input type="submit" name="posudek_1_submit" class="btn-default, btn">
+                    <input type="submit" name="posudek_1_submit" class="btn-default btn">
                 <?php else: echo $sql_clanky_assoc['posudek_1'];
                 endif; ?>
             </td>
@@ -181,19 +187,19 @@ $clanky_num = mysqli_num_rows($sql_num_clanky);
                         ?>
                     </select>
                     <br>
-                    <input type="submit" name="priradit_pos_2" class="btn-default, btn">
+                    <input type="submit" name="priradit_pos_2" class="btn-default btn">
                 <?php else: echo $sql_clanky_assoc['posudek_2_priradit']; ?>
                 <?php endif; ?>
             </td>
         </tr>
     <?php endif; ?>
-    <?php if (($sql_clanky_assoc['posudek_2_priradit'] == $_SESSION['logos_polytechnikos_login'] || $_SESSION['adm'] == 1 || $_SESSION['red'] == 1) && $sql_clanky_assoc['schvaleno'] == 1): ?>
+    <?php if (($sql_clanky_assoc['posudek_2_priradit'] == $_SESSION['logos_polytechnikos_login'] || $_SESSION['adm'] == 1 || $_SESSION['red'] == 1) && $sql_clanky_assoc['schvaleno'] == 1 && $sql_clanky_assoc['posudek_2_priradit'] != ""): ?>
         <tr>
             <td>Posudek 2</td>
             <td>
                 <?php if ($sql_clanky_assoc['posudek_2'] == "") : ?>
                     <textarea name="posudek_2" cols="75" class="form-control"></textarea><br>
-                    <input type="submit" name="posudek_2_submit" class="btn-default, btn">
+                    <input type="submit" name="posudek_2_submit" class="btn-default btn">
                 <?php else: echo $sql_clanky_assoc['posudek_2'];
             endif; ?>
         </td>
@@ -202,7 +208,7 @@ $clanky_num = mysqli_num_rows($sql_num_clanky);
     <?php if (($_SESSION['adm'] == 1 || $_SESSION['red'] == 1) && $sql_clanky_assoc['oprava'] == -1) : ?>
         <tr>
             <td>Odemknout vložení opravy</td>
-            <td><input type="submit" name="odemknout_opravu" class="btn-default, btn"></td>
+            <td><input type="submit" name="odemknout_opravu" class="btn-default btn"></td>
         </tr>
     <?php endif; ?>
     <?php if (($_SESSION['adm'] == 1 || $_SESSION['red'] == 1) && $sql_clanky_assoc['schvaleno'] == 1) ?>
@@ -210,8 +216,8 @@ $clanky_num = mysqli_num_rows($sql_num_clanky);
         <td>Přijmout článek:</td>
         <td>
             <?php if ($sql_clanky_assoc['prijato'] == -1) : ?>
-                <input type="submit" name="prijmoout_do_casopisu" value="Přijmout" class="btn-default, btn">
-                <input type="submit" name="odmitnout_do_casopisu" value="Odmítnout" class="btn-default, btn">
+                <input type="submit" name="prijmoout_do_casopisu" value="Přijmout" class="btn-default btn">
+                <input type="submit" name="odmitnout_do_casopisu" value="Odmítnout" class="btn-default btn">
             <?php else: echo BitToText($sql_clanky_assoc['prijato']); endif; ?>
 
             </td>

@@ -7,8 +7,8 @@ elseif ($_SESSION['red'] == 1) {
     $sql_neschvaleno = mysqli_query($link, $query_neschvaleno);
     if (mysqli_num_rows($sql_neschvaleno) > 0) {
         echo "Nevyřízené články:".
-        "<table class=\"table\">".
-        "<tr><td><b>Jméno</b></td><td><b>Číslo časopisu</b></td><td><td></tr>";
+        "<table class=\"table table-striped\">".
+        "<thead><tr><td><b>Jméno</b></td><td><b>Číslo časopisu</b></td><td><td></tr></thead>";
         while ($row = mysqli_fetch_assoc($sql_neschvaleno)) {
             echo
             "<tr>".
@@ -25,8 +25,8 @@ elseif ($_SESSION['red'] == 1) {
     $sql_bez_posudku = mysqli_query($link, $query_bez_posudku);
     if (mysqli_num_rows($sql_bez_posudku) > 0) {
         echo "Nevyřízené články:".
-        "<table class=\"table\">".
-        "<tr><td><b>Jméno</b></td><td><b>Číslo časopisu</b></td><td><td></tr>";
+        "<table class=\"table table-striped\">".
+        "<thead><tr><td><b>Jméno</b></td><td><b>Číslo časopisu</b></td><td><td></tr><thead>";
         while ($row = mysqli_fetch_assoc($sql_bez_posudku)) {
             echo
             "<tr>".

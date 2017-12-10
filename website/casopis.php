@@ -15,10 +15,12 @@ if (isset($_GET['remove'])) {
 }
 if ($_SESSION['adm'] == 1 || $_SESSION['red'] == 1) : ?>
 <form method="post">
-    <table class="table">
-        <tr>
-            <td colspan="2">Přidat nové číslo:</td>
-        </tr>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td colspan="2"><b>Přidat nové číslo:</b></td>
+            </tr>
+        </thead>
         <tr>
             <td>Rok:</td>
             <td><input type="number" name="rok" value="<?php echo date("Y"); ?>" min="2000" max="2100" class="form-control"></td>
@@ -37,7 +39,7 @@ if ($_SESSION['adm'] == 1 || $_SESSION['red'] == 1) : ?>
         </tr>
         <tr>
             <td></td>
-            <td><input type="submit" name="novy_casopis" class="btn-default, btn"></td>
+            <td><input type="submit" name="novy_casopis" class="btn-default btn"></td>
         </tr>
     </table>
 </form>
@@ -53,27 +55,33 @@ while ($row = mysqli_fetch_array($sql_casopisy, MYSQLI_ASSOC)) {
 // echo "<pre>"; print_r($sql_casopisy_assoc); echo "</pre>";
 ?>
 
-<table class="table">
-    <tr>
-        <td></td>
-        <td><b>Téma</b></td>
-        <td><b>Kapacita</b></td>
-        <td><b>Přijato do recenzního řízení</b></td>
-        <td></td>
-        <?php if ($_SESSION['adm'] == 1): ?>
+<table class="table table-striped">
+    <thead>
+        <tr>
             <td></td>
-        <?php endif; ?>
-    </tr>
+            <td><b>Téma</b></td>
+            <td><b>Kapacita</b></td>
+            <td><b>Přijato do recenzního řízení</b></td>
+            <td></td>
+            <?php if ($_SESSION['adm'] == 1): ?>
+                <td></td>
+            <?php endif; ?>
+        </tr>
+    </thead>
     <?php
     foreach ($sql_casopisy_assoc as $s) {
         $query_num_clanky = "SELECT * FROM rsp_autori WHERE cislo='".$s['cislo']."' AND schvaleno = 1;";
         $sql_num_clanky = mysqli_query($link, $query_num_clanky);
         $clanky_prijato = mysqli_num_rows($sql_num_clanky);
+        
+        $query_kapacita = "SELECT * FROM rsp_autori WHERE cislo='".$s['cislo']."' AND prijato = 1;";
+        $sql_kapacita = mysqli_query($link, $query_kapacita);
+        $kapacita = mysqli_num_rows($sql_kapacita);
         echo
         "<tr>".
         "<td>".$s['rok']."/".$s['ctvrtleti']."</td>".
         "<td>".$s['tema']."</td>".
-        "<td>"."0"."/".$s['kapacita']."</td>".
+        "<td>".$kapacita."/".$s['kapacita']."</td>".
         "<td>".$clanky_prijato."</td>";
         if ($clanky_prijato >= 1) {
             echo "<td><a href=\"?menu=clanky&cislo=".$s['cislo']."\">zobrazit články</a><td>";

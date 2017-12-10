@@ -9,35 +9,39 @@ if (isset($_POST['uzivatel_change'])) {
 }
 if ($_GET['u'] == "add") :
     if ($_SESSION['adm'] == 1) : ?>
-    <table class="table">
+    <table class="table table-striped">
         <form method="post">
-            <tr>
-                <td colspan="2"><b>Přidání uživatele<b></td>
-            </tr>
-            <tr>
-                <td>Uživatelské jméno</td>
-                <td><input type="text" name="username" class="form-control"></td>
-            </tr>
-            <tr>
-                <td>Heslo</td>
-                <td><input type="text" name="password" class="form-control"></td>
-            </tr>
-            <tr>
-                <td>Administrátor</td>
-                <td><input type="checkbox" name="adm" class="form-control"></td>
-            </tr>
-            <tr>
-                <td>Redaktor</td>
-                <td><input type="checkbox" name="red" class="form-control"></td>
-            </tr>
-            <tr>
-                <td>Recenzent</td>
-                <td><input type="checkbox" name="rec" class="form-control"></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="submit" name="uzivatel_add" class="btn-default, btn"></td>
-            </tr>
+            <thead>
+                <tr>
+                    <td colspan="2"><b>Přidání uživatele<b></td>
+                </tr>
+            </thead>
+                <tbody>
+                <tr>
+                    <td>Uživatelské jméno</td>
+                    <td><input type="text" name="username" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>Heslo</td>
+                    <td><input type="text" name="password" class="form-control"></td>
+                </tr>
+               <tr>
+                   <td>Administrátor</td>
+                    <td><input type="checkbox" name="adm" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>Redaktor</td>
+                    <td><input type="checkbox" name="red" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>Recenzent</td>
+                    <td><input type="checkbox" name="rec" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" name="uzivatel_add" class="btn-default btn"></td>
+                </tr>
+            </tbody>
         </form>
     </table>
 <?php else:
@@ -51,11 +55,13 @@ if ($_GET['u'] == "view") {
         $sql_users = mysqli_query($link, $query_users);
         $user_assoc = mysqli_fetch_assoc($sql_users);
         ?>
-        <table class="table">
+        <table class="table table-striped">
             <form method="post" action="?menu=users&amp;u=view">
-                <tr>
-                    <td colspan="2"><b>Úprava uživatele</b></td>
-                </tr>
+                <thead>
+                    <tr>
+                        <td colspan="2"><b>Úprava uživatele</b></td>
+                    </tr>
+                </thead>
                 <tr>
                     <td>Uživatelské jméno</td>
                     <td><input type="text" name="username" value="<?php echo $user_assoc['username']; ?>" class="form-control"></td>
@@ -79,7 +85,7 @@ if ($_GET['u'] == "view") {
                 <?php if ($_SESSION['adm'] == 1) : ?>
                     <tr>
                         <td></td>
-                        <td><input type="submit" name="uzivatel_change" class="btn-default, btn"></td>
+                        <td><input type="submit" name="uzivatel_change" class="btn-default btn"></td>
                     </tr>
                 <?php endif; ?>
             </form>

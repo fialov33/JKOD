@@ -52,21 +52,24 @@
     include_once("basic_functions.php");
 
     if (!isset($_SESSION['logos_polytechnikos_login'])) : ?>
-    <table>
-        <form method="post">
-            <tr>
-                <td>Jméno:</td>
-                <td><input type="text" name="username" class="form-control"></td>
-            </tr>
-            <tr>
-                <td>Heslo:</td>
-                <td><input type="password" name="password" class="form-control"></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="submit" name="login_submit" class="form-control"></td>
+    <div style="border: 5px solid #ccc; border-radius: 25px; padding: 1em; margin: 10em; display: inline-block">
+        <table>
+            <form method="post">
+                <tr>
+                    <td>Jméno:</td>
+                    <td><input type="text" name="username" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>Heslo:</td>
+                    <td><input type="password" name="password" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" name="login_submit" value="Přihlásit" class="form-control"></td>
+                </tr>
             </form>
         </table>
+    </div>
     <?php else :
         include_once("menu.php");
 

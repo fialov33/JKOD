@@ -8,7 +8,7 @@
                 <tr>
                     <td>
                         <form method="post" action="">
-                            <input type="submit" name="logout" value="Odhlásit" class="btn-default, btn">
+                            <input type="submit" name="logout" value="Odhlásit" class="btn-default btn">
                         </form>
                     </td>
                 </tr>

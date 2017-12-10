@@ -10,6 +10,9 @@
     ini_set('display_errors',1);
     error_reporting(-1);
 
+    $file = "config.json";
+    $json = json_decode(file_get_contents($file),TRUE);
+
     include_once("basic_functions.php");
     include_once("top_bar.php");
 
@@ -63,7 +66,7 @@
                 </tr>
                 ";
                 MailTo($autor_mail, "LOGOS POLYTECHNIKOS - přijetí článku", $autor_text);
-                MailTo("gr33nnyg@gmail.com", "LOGOS POLYTECHNIKOS - přijetí článku", $redaktor_text);
+                MailTo($json['config']['redakce_mail'], "LOGOS POLYTECHNIKOS - přijetí článku", $redaktor_text);
             }
         }
         $show_form = false;
@@ -77,7 +80,7 @@
         echo mysqli_error($link);
         if ($autor_num_rows == 1) :
             ?>
-            <table class="table">
+            <table class="table table-striped">
                 <tr>
                     <td>Jméno</td>
                     <td><?php echo $autor_info_arr['autor_name']; ?></td>
@@ -108,7 +111,7 @@
                         <td>
                             <form method="post" action="" enctype="multipart/form-data">
                                 <input type="file" name="file_upload" accept="application/pdf" class="form-control">
-                                <input type="submit" name="submit_upload_oprava" class="btn-default, btn">
+                                <input type="submit" name="submit_upload_oprava" class="btn-default btn">
                             </form>
                         </td>
                     </tr>
@@ -123,24 +126,28 @@
     <form method="post" action="" enctype="multipart/form-data">
         <table class="table">
             <tr>
-                <td colspan="2">Nahrání článku:</td>
+                <td colspan="2">Na této stránce můžete nahrát Váš článek do časopisu LOGOS POLYTECHNIKOS.</td>
             </tr>
             <tr>
-                <td>Jméno:</td>
-                <td><input type="text" name="autor_jmeno" class="form-control"></td>
+                <td>Jméno:<font style="color: red;">*</font></td>
+                <td><input type="text" name="autor_jmeno" class="form-control" required></td>
             </tr>
             <tr>
-                <td>Email:</td>
-                <td><input type="email" name="autor_mail" class="form-control"></td>
+                <td>Email:<font style="color: red;">*</font></td>
+                <td><input type="email" name="autor_mail" class="form-control" required></td>
             </tr>
             <tr>
-                <td>Časopis:</td>
+                <td>Časopis:<font style="color: red;">*</font></td>
                 <?php
-                $query_load_casopisy = "SELECT * FROM rsp_casopisy ORDER BY rok, ctvrtleti";
+                $query_load_casopisy = "SELECT * FROM rsp_casopisy WHERE rok>='".date('Y')."' ORDER BY rok, ctvrtleti";
                 $sql_casopisy = mysqli_query($link, $query_load_casopisy);
 
+                $rok = date('Y');
+                $mesic = date('n')/4;
                 while ($row = mysqli_fetch_array($sql_casopisy, MYSQLI_ASSOC)) {
-                    $sql_casopisy_assoc[] = $row;
+                    if ($rok < $row['rok']  || ($rok == $row['rok'] && $mesic < $row['ctvrtleti'])) {
+                        $sql_casopisy_assoc[] = $row;
+                    }
                 }
                 ?>
                 <td>
@@ -154,15 +161,19 @@
                 </td>
             </tr>
             <tr>
-                <td>Článek:</td>
-                <td><input type="file" name="file_upload" accept="application/pdf" class="form-control"></td>
+                <td>Článek:<font style="color: red;">*</font></td>
+                <td><input type="file" name="file_upload" accept="application/pdf" class="form-control" required></td>
             </tr>
             <tr>
                 <td></td>
-                <td><input type="submit" name="submit_upload" value="Poslat článek" class="btn-default, btn"></td>
+                <td><input type="submit" name="submit_upload" value="Poslat článek" class="btn-default btn"></td>
             </tr>
         </table>
     </form>
+    <br>
+    <font style="color: red;">*</font> Takto označené položky jsou povinné.
+    <br>
+    Nejčastěji tázané otázky naleznete <a href="faq.php">ZDE</a>
     <?php
     endif;
     ?>
