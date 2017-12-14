@@ -1,24 +1,21 @@
-Příští týden v pondělí je Finále sprintu 1 - sprint review, kde se bude chtít po nás ukázka a co jsme za sprint 1 odvedli za práci.
+Příští týden v pondělí je Finále sprintu 2 - sprint review, kde se bude chtít po nás ukázka a co jsme za sprint 2 odvedli za práci.
 
 Pro to je, ale potřeba udělat ještě "pár" věcí.
 
 Musíme vytvořit 3 NOVÉ DOKUMENTY :
-                                  REVIEW - zhodnocení zákazníkem
-                                  RETROSPEKTIVA - co do sprintu 2 zlepšit, jaké praktiky si přenés do sprintu 2, co fungovalo/nefungovalo
-                                  PREZENTACE ZA 14 DNÍ - ve společné přednášce každý tým bude prezentovat zatím odvedenou práci atd.
+                                  REVIEW - HOTOVÁ ???????
+                                  RETROSPEKTIVA - HOTOVÁ (nahraju ji sem)
+                                  PREZENTACE ZA 14 DNÍ - VYPRACOVAT (stačí podobná ta co minule :D )
 
-Dále musíme změnit:
-                    1) Máme málo hodin - momentálně nějakých 90 a musíme mít cca 160, protože celkově jich je 320. Můžeme jich mít klidně více, protože se počítá, že ve sprintu 1 odvedeme více práce. Takže změnit hodiny tak, aby to sedělo podle skutečnosti.
-                    2) Upravit SeeNowDo - grafy - máme špatně klesání a stoupání hodin, zřejmě špatně přesouváme tasky v kategoriích TODO - IN PROGRESS - COMPLETED
-                    3) Tasky vytváříme špatně - uživatelský příběh se rozpadá na více částí - tasků - programátorských úkolů - které je třeba přidělit
+Jak to vypadá s webem ?
+
+
+SEENOWDO:
+          -->  Graf vypadá dobře (snižuji hodiny)
+          --> s počtama hodin jsme na tom jak ? Já myslím, že dobře, ale SCRUM MASTER ať přepočítá kdyžtak :)
+          
+GITHUB:
+          --> NAHRÁT ZBYLÉ DOKUMENTY (RETROSPEKTIVA, REVIEW, PREZENTACE, HODNOCENÍ ČLENŮ)  a mělo by to být ende šlus!
  
- 
-  Prosím o doplnění těchto údaju, co si zapsali ostatní!
- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- 
-UDĚLÁNO: DOKUMENT RETROSPEKTIVA - IN PROGRESS - JAK JSEM JIŽ PSAL , STÁHNTĚTE A DOPLŇTE !
-         DOKUMENT REVIEW - MUSÍ SE DOPLNIT PO SETKÁNÍ SE ZÁKAZNÍKEM!
-         SEENOWDO - ZMĚNĚNA METRIKA, PŘIDÁNY TÁSKY! - aktuálně cca 120 hodin, cílem je alespoň 160. Kdo víte, že jste na nějakém tasku pracovali déle, přidejte mu hodiny, ať nám to sedí. Je možné, že tam nějaký task úplně chybí - v tom případě doplnit a ocenit hodinami. 
-         ČÁSTI APLIKACE ( BASIC FUNCTION, CASOPIS.PHP, CLANEK.PHP, CLANKY.PHP,MAIN.PHP, UPLOAD.PHP, uzivatelske role, jednoduchy navrh grafiky, login, sprava uzivatelu, automaticke e-maily)
-                    
+
                  
