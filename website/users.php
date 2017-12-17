@@ -1,12 +1,32 @@
+<style>
+    .checkbox
+    {
+        width:50px;
+    }
+</style>
 <?php
 if (isset($_POST['uzivatel_add'])) {
-    $query_user_add = "INSERT INTO rsp_users VALUES ('".$_POST['username']."', '".$_POST['password']."', '".CheckboxToBit(@$_POST['adm'])."', '".CheckboxToBit(@$_POST['red'])."', '".CheckboxToBit(@$_POST['rec'])."');";
-    $sql_user_add = mysqli_query($link, $query_user_add);
+    $query_user_exist = "SELECT * FROM rsp_users WHERE username = '".$_POST['username']."'";
+    $sql_user_exist = mysqli_query($link, $query_user_exist);
+    if (mysqli_num_rows($sql_user_exist) != 0) {
+        echo "Uživatel s tímto uživatelským jménem již existuje.";
+    } else {
+        $query_user_add = "INSERT INTO rsp_users VALUES ('".$_POST['username']."', '".$_POST['password']."', '".CheckboxToBit(@$_POST['adm'])."', '".CheckboxToBit(@$_POST['red'])."', '".CheckboxToBit(@$_POST['rec'])."');";
+        $sql_user_add = mysqli_query($link, $query_user_add);
+        echo "Uživatel byl úspěšně přidaný.<br>";
+    }
 }
 if (isset($_POST['uzivatel_change'])) {
     $query_user_change = "UPDATE rsp_users SET username = '".$_POST['username']."', password = '".$_POST['password']."', administrator = '".CheckboxToBit(@$_POST['adm'])."', redaktor = '".CheckboxToBit(@$_POST['red'])."', recenzent = '".CheckboxToBit(@$_POST['rec'])."' WHERE username = '".$_POST['username']."';";
     $sql_user_change = mysqli_query($link, $query_user_change);
+    echo "Změny byly úspěšně uložené.<br>";
 }
+if (isset($_POST['uzivatel_delete'])) {
+    $query_user_delete = "DELETE FROM rsp_users WHERE username = '".$_POST['username']."'";
+    $sql_user_delete = mysqli_query($link, $query_user_delete);
+    echo "Uživatel ".$_POST['username']." byl úspěšně smazaný.<br>";
+}
+
 if ($_GET['u'] == "add") :
     if ($_SESSION['adm'] == 1) : ?>
     <table class="table table-striped">
@@ -19,23 +39,23 @@ if ($_GET['u'] == "add") :
                 <tbody>
                 <tr>
                     <td>Uživatelské jméno</td>
-                    <td><input type="text" name="username" class="form-control"></td>
+                    <td><input type="text" name="username" class="form-control input-short" required></td>
                 </tr>
                 <tr>
                     <td>Heslo</td>
-                    <td><input type="text" name="password" class="form-control"></td>
+                    <td><input type="text" name="password" class="form-control input-short" required></td>
                 </tr>
                <tr>
                    <td>Administrátor</td>
-                    <td><input type="checkbox" name="adm" class="form-control"></td>
+                    <td><input type="checkbox" name="adm" class="form-control checkbox"></td>
                 </tr>
                 <tr>
                     <td>Redaktor</td>
-                    <td><input type="checkbox" name="red" class="form-control"></td>
+                    <td><input type="checkbox" name="red" class="form-control checkbox"></td>
                 </tr>
                 <tr>
                     <td>Recenzent</td>
-                    <td><input type="checkbox" name="rec" class="form-control"></td>
+                    <td><input type="checkbox" name="rec" class="form-control checkbox"></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -50,7 +70,7 @@ if ($_GET['u'] == "add") :
 endif;
 
 if ($_GET['u'] == "view") {
-    if (isset($_GET['user'])) {
+    if (isset($_GET['user']) && $_SESSION['adm'] == 1) {
         $query_users = "SELECT * FROM rsp_users WHERE username = '".$_GET['user']."';";
         $sql_users = mysqli_query($link, $query_users);
         $user_assoc = mysqli_fetch_assoc($sql_users);
@@ -64,30 +84,31 @@ if ($_GET['u'] == "view") {
                 </thead>
                 <tr>
                     <td>Uživatelské jméno</td>
-                    <td><input type="text" name="username" value="<?php echo $user_assoc['username']; ?>" class="form-control"></td>
+                    <td><input type="text" name="username" value="<?php echo $user_assoc['username']; ?>" class="form-control input-short" required></td>
                 </tr>
                 <tr>
                     <td>Heslo</td>
-                    <td><input type="text" name="password" value="<?php echo $user_assoc['password']; ?>" class="form-control"></td>
+                    <td><input type="text" name="password" value="<?php echo $user_assoc['password']; ?>" class="form-control input-short" required></td>
                 </tr>
                 <tr>
                     <td>Administrátor</td>
-                    <td><input type="checkbox" name="adm" <?php if ($user_assoc['administrator'] == 1) echo "checked" ?>></td>
+                    <td><input type="checkbox" name="adm" <?php if ($user_assoc['administrator'] == 1) echo "checked" ?> class="form-control checkbox"></td>
                 </tr>
                 <tr>
                     <td>Redaktor</td>
-                    <td><input type="checkbox" name="red" <?php if ($user_assoc['redaktor'] == 1) echo "checked" ?>></td>
+                    <td><input type="checkbox" name="red" <?php if ($user_assoc['redaktor'] == 1) echo "checked" ?> class="form-control checkbox"></td>
                 </tr>
                 <tr>
                     <td>Recenzent</td>
-                    <td><input type="checkbox" name="rec" <?php if ($user_assoc['recenzent'] == 1) echo "checked" ?>></td>
+                    <td><input type="checkbox" name="rec" <?php if ($user_assoc['recenzent'] == 1) echo "checked" ?> class="form-control checkbox"></td>
                 </tr>
-                <?php if ($_SESSION['adm'] == 1) : ?>
                     <tr>
                         <td></td>
-                        <td><input type="submit" name="uzivatel_change" class="btn-default btn"></td>
+                        <td>
+                            <input type="submit" name="uzivatel_change" class="btn-default btn" value="Uložit">
+                            <input type="submit" name="uzivatel_delete" class="btn-default btn btn-danger" style="float: right;" value="Smazat uživatele">
+                        </td>
                     </tr>
-                <?php endif; ?>
             </form>
         </table>
         <?php

@@ -4,6 +4,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<style>
+    .input-short
+    {
+      width: 15em
+    }
+</style>
+
 <div class="container">
     <?php
     ini_set('display_startup_errors',1);
@@ -45,6 +52,8 @@
                 $_SESSION['logos_polytechnikos_role'] .= "Recenzent<br>";
                 $_SESSION['rec'] = 1;
             }
+        } else {
+            $login_err = "Nesprávné přihlašovací údaje.";
         }
     }
 
@@ -52,21 +61,34 @@
     include_once("basic_functions.php");
 
     if (!isset($_SESSION['logos_polytechnikos_login'])) : ?>
-    <div style="border: 5px solid #ccc; border-radius: 25px; padding: 1em; margin: 10em; display: inline-block">
+    <div style="border: 5px solid #ccc; border-radius: 25px; padding: 2em; margin: 10em; display: inline-block">
+        <style>
+            .input-margin
+            {
+                margin: 5px;
+            }
+        </style>
         <table>
             <form method="post">
                 <tr>
                     <td>Jméno:</td>
-                    <td><input type="text" name="username" class="form-control"></td>
+                    <td><input type="text" name="username" class="form-control input-margin" required></td>
                 </tr>
                 <tr>
                     <td>Heslo:</td>
-                    <td><input type="password" name="password" class="form-control"></td>
+                    <td><input type="password" name="password" class="form-control input-margin" required></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td><input type="submit" name="login_submit" value="Přihlásit" class="form-control"></td>
+                    <td><input type="submit" name="login_submit" value="Přihlásit" class="form-control input-margin"></td>
                 </tr>
+                <?php if (isset($login_err)): ?>
+                    <tr>
+                        <td colspan="2" style="color:red;">
+                            <?php echo $login_err; ?>
+                        </td>
+                    </tr>
+                <?php endif; ?>
             </form>
         </table>
     </div>

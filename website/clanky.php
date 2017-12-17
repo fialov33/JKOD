@@ -13,6 +13,9 @@ if (isset($_GET['filter_submit'])) {
     $query_load_clanky = "SELECT * FROM rsp_autori NATURAL JOIN rsp_casopisy WHERE rsp_autori.cislo='".$_GET['cislo']."' AND schvaleno = 1";
 } else {
     $query_load_clanky = "SELECT * FROM rsp_autori NATURAL JOIN rsp_casopisy";
+    if (isset($_GET['autor_mail'])) {
+        $query_load_clanky .= " WHERE autor_mail = '".$_GET['autor_mail']."'";
+    }
 }
 
 if (isset($_GET['order'])) {
@@ -105,6 +108,9 @@ else :
                 $href = "?menu=clanky";
                 if (isset($_GET['cislo'])) {
                     $href .= "&cislo=".$_GET['cislo'];
+                }
+                if (isset($_GET['autor_mail'])) {
+                    $href .= "&autor_mail=".$_GET['autor_mail'];
                 }
                 $href .= "&order=";
                 ?>

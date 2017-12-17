@@ -23,19 +23,19 @@ if ($_SESSION['adm'] == 1 || $_SESSION['red'] == 1) : ?>
         </thead>
         <tr>
             <td>Rok:</td>
-            <td><input type="number" name="rok" value="<?php echo date("Y"); ?>" min="2000" max="2100" class="form-control"></td>
+            <td><input type="number" name="rok" value="<?php echo date("Y"); ?>" min="2000" max="2100" class="form-control input-short"></td>
         </tr>
         <tr>
             <td>Čtvrtletí:</td>
-            <td><input type="number" name="ctvrt" value="1" min="1" max="4" class="form-control"></td>
+            <td><input type="number" name="ctvrt" value="1" min="1" max="4" class="form-control input-short"></td>
         </tr>
         <tr>
             <td>Kapacita:</td>
-            <td><input type="number" name="kap" value="1" min="1" max="100" class="form-control"></td>
+            <td><input type="number" name="kap" value="1" min="1" max="100" class="form-control input-short"></td>
         </tr>
         <tr>
             <td>Téma:</td>
-            <td><input type="text" name="tema" class="form-control"></td>
+            <td><input type="text" name="tema" class="form-control input-short"></td>
         </tr>
         <tr>
             <td></td>
@@ -73,7 +73,7 @@ while ($row = mysqli_fetch_array($sql_casopisy, MYSQLI_ASSOC)) {
         $query_num_clanky = "SELECT * FROM rsp_autori WHERE cislo='".$s['cislo']."' AND schvaleno = 1;";
         $sql_num_clanky = mysqli_query($link, $query_num_clanky);
         $clanky_prijato = mysqli_num_rows($sql_num_clanky);
-        
+
         $query_kapacita = "SELECT * FROM rsp_autori WHERE cislo='".$s['cislo']."' AND prijato = 1;";
         $sql_kapacita = mysqli_query($link, $query_kapacita);
         $kapacita = mysqli_num_rows($sql_kapacita);
